@@ -1,4 +1,4 @@
-# Wordle Helper [![Pylint](https://github.com/kasztp/Worlde_Helper/actions/workflows/pylint.yml/badge.svg)](https://github.com/kasztp/Wordle_Helper/actions/workflows/pylint.yml)
+# Wordle Helper [![Pylint](https://github.com/kasztp/Wordle_Helper/actions/workflows/pylint.yml/badge.svg)](https://github.com/kasztp/Wordle_Helper/actions/workflows/pylint.yml)
 
 Helper (or cheating if you'd like) tool for the viral word game Wordle.
 It is based on my previous Letterpress Helper pet project with Flask, Bootstrap & FontAwesome
