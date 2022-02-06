@@ -4,6 +4,7 @@ basedir = path.abspath(path.dirname(__file__))
 
 
 class Config:
+    """ Config settings for Flask app. """
     SECRET_KEY = environ.get('SECRET_KEY') or 'nobody-gonna-guess-it'
     STATIC_PATH = './app/static'
     DEBUG = False

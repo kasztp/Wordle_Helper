@@ -7,13 +7,12 @@ from .wordle_logic import Wordle
 
 max_word_length = 5
 letter_draw = []
-grouped = {}
+grouped = []
 
 
 @app.route('/')
 def root():
-    return render_template('results.html', title='Home', scores=grouped,
-                           letters='letters')
+    return redirect(url_for('config'))
 
 
 @app.route('/results')
@@ -33,10 +32,21 @@ def config():
             if form.own_letterset.data:
                 form.own_letterset.data = re.sub(r'\W+', '', form.own_letterset.data).lower()
                 for character in form.own_letterset.data:
-                    letter_draw += [character]
-                game.hand.update_hand(letter_draw)
+                    letter_draw += [character] * 2
+                    game.hand.update_hand(letter_draw)
             else:
                 letter_draw = game.hand.held_letters
+            if form.guessed_letters.data:
+                form.guessed_letters.data = re.sub(r'\W+', '', form.guessed_letters.data).lower()
+                for character in form.guessed_letters.data:
+                    letter_draw += [character] * 2
+                    game.hand.update_hand(letter_draw)
+            if form.placed_letters.data:
+                lowercased = [re.sub(r'\W+', '', char).lower() for char in form.placed_letters.data]
+                for character in lowercased:
+                    if character != '':
+                        letter_draw += [character] * 2
+                game.hand.update_hand(letter_draw)
             print(f'Letters drawn: {letter_draw}')
             flash(f'Letters: {letter_draw}')
             valid_words = game.word_check(letter_draw, max_word_length)
@@ -60,11 +70,10 @@ def config():
                             valid_words.discard(word)
 
             global grouped
-            grouped = {}
             if valid_words != 'NONE':
-                scores = game.score_calc(valid_words)
-                grouped = game.group_by_score(scores)
+                grouped = sorted(list(valid_words))
+                print(grouped)
             else:
-                grouped = {0: 'Number of valid words found'}
+                grouped = ['0 valid words found']
         return redirect(url_for('index'))
     return render_template('config.html', title='Configuration', form=form)

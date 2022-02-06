@@ -1,20 +1,21 @@
 import random
 import timeit
 
-# Load Word dictionaries from text files.
-EN_FILENAME = './app/static/words.txt'  # Scrabble (for now) EN word list
+# Load the Word list with only 5 length words from text file.
+EN_FILENAME = './app/static/words_5length.txt'
 with open(EN_FILENAME, encoding='utf-8') as en_file:
     EN_WORDS = set(en_file.read().splitlines())
 
 
 class Hand:
+    """ Class to represent the letters that we have. """
     def __init__(self, letterset, lettercount):
         self.letterset = letterset
         self.lettercount = lettercount
         self.held_letters = self.draw_letters(lettercount)
 
-    # Draw n number of random letters from the letter set
     def draw_letters(self, lettercount: int) -> list:
+        """ Draw a number of random letters from the letter set. """
         if lettercount >= 2:
             print(self.letterset)
             ownletters = random.sample(self.letterset, k=lettercount)
@@ -29,17 +30,18 @@ class Hand:
 
 
 class Wordle:
+    """ Class to represent Wordle helper logic. """
     def __init__(self):
         self.wordlist = EN_WORDS
-        self.letterset = ['a'] * 9 + ['b'] * 2 + ['c'] * 2 + ['d'] * 4 + ['e'] * 12 +\
-                    ['f'] * 2 + ['g'] * 3 + ['h'] * 2 + ['i'] * 9 + ['j'] + ['k'] +\
-                    ['l'] * 4 + ['m'] * 2 + ['n'] * 6 + ['o'] * 8 + ['p'] * 2 +\
-                    ['q'] + ['r'] * 6 + ['s'] * 4 + ['t'] * 6 + ['u'] * 4 +\
-                    ['v'] * 2 + ['w'] * 2 + ['x'] + ['y'] * 2 + ['z']
+        self.letterset = ['a'] * 2 + ['b'] * 2 + ['c'] * 2 + ['d'] * 2 + ['e'] * 2 + ['f'] * 2 + \
+                         ['g'] * 2 + ['h'] * 2 + ['i'] * 2 + ['j'] * 2 + ['k'] * 2 + ['l'] * 2 + \
+                         ['m'] * 2 + ['n'] * 2 + ['o'] * 2 + ['p'] * 2 + ['q'] * 2 + ['r'] * 2 + \
+                         ['s'] * 2 + ['t'] * 2 + ['u'] * 2 + ['v'] * 2 + ['w'] * 2 + ['x'] * 2 + \
+                         ['y'] * 2 + ['z'] * 2
         self.hand = Hand(self.letterset, 7)
 
-    # Check which words of the dictionary can be built from held letters (HU version to be polished):
     def checker(self, ownletters, length):
+        """ Check which "length" length words of the dictionary can be built from held letters. """
         valid_words = set()
         for word in self.wordlist:
             if len(word) == length:
@@ -64,27 +66,3 @@ class Wordle:
         textperm |= results
         print(f'Unique words generated so far: {len(textperm)}')
         return textperm
-
-    # Calculate word point values
-    def score_calc(self, words: list) -> dict:
-        if words != 1:
-            scores = {}
-            for word in words:
-                if word != ():
-                    value = len(word)
-                    scores[word] = value
-            return scores
-        else:
-            print('ERROR: NO valid words given!')
-            return 'NONE'
-
-    def group_by_score(self, scores: dict) -> dict:
-        score_groups = sorted(set(val for val in scores.values()), reverse=True)
-        grouped_words = {}
-        for number in score_groups:
-            wordgroup = []
-            for i in scores.items():
-                if i[1] == number:
-                    wordgroup.extend(i[0:1])
-            grouped_words[number] = sorted(wordgroup)
-        return grouped_words

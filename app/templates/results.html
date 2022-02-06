@@ -6,15 +6,13 @@
         <table class="table table-bordered table-hover bg-light">
             <thead class="thead-dark">
             <tr>
-                <th>Worldle Words</th>
+                <th>Possible Worldle Words</th>
             </tr>
             </thead>
             <tbody>
-            {% for score,v in scores.items() %}
             <tr>
-                <td>{% for w in v %}{{ w }} {% endfor %}</td>
+                <td>{% for w in scores %}{{ w }} {% endfor %}</td>
             </tr>
-            {% endfor %}
             </tbody>
         </table>
     </div>
