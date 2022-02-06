@@ -5,7 +5,7 @@ from app import app
 from .forms import ConfigForm
 from .wordle_logic import Wordle
 
-max_word_length = 5
+MAX_WORD_LENGTH = 5
 letter_draw = []
 grouped = []
 
@@ -49,15 +49,15 @@ def config():
                 game.hand.update_hand(letter_draw)
             print(f'Letters drawn: {letter_draw}')
             flash(f'Letters: {letter_draw}')
-            valid_words = game.word_check(letter_draw, max_word_length)
+            valid_words = game.word_check(letter_draw, MAX_WORD_LENGTH)
 
             if form.placed_letters.data:
                 print(form.placed_letters.data)
                 temp_word_list = deepcopy(valid_words)
-                for idx, word in enumerate(temp_word_list):
+                for word in temp_word_list:
                     temp_word = list(word)
                     for place, letter in enumerate(form.placed_letters.data):
-                        if letter != '' and letter != temp_word[place]:
+                        if letter not in ('', temp_word[place]):
                             valid_words.discard(word)
 
             if form.guessed_letters.data:

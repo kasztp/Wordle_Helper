@@ -1,3 +1,4 @@
+""" Wordle Helper logic. """
 import random
 import timeit
 
@@ -21,11 +22,11 @@ class Hand:
             ownletters = random.sample(self.letterset, k=lettercount)
             print(f'letters drawn: {ownletters}')
             return ownletters
-        else:
-            print('ERROR: letter number less than 2!')
-            return []
+        print('ERROR: letter number less than 2!')
+        return []
 
     def update_hand(self, letters):
+        """ Update Hand with custom letters. """
         self.held_letters = letters
 
 

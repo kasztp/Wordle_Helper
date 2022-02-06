@@ -1,3 +1,4 @@
+""" Helper to drop unnecessary words from word dictionary file. """
 EN_FILENAME = 'app/static/words.txt'  # Scrabble (for now) EN word list
 with open(EN_FILENAME, encoding='utf-8') as en_file:
     EN_WORDS = set(en_file.read().splitlines())
