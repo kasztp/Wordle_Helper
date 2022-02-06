@@ -64,7 +64,7 @@ def config():
                 print(form.guessed_letters.data)
                 temp_word_list = deepcopy(valid_words)
                 guessed_letters = list(form.guessed_letters.data)
-                for idx, word in enumerate(temp_word_list):
+                for word in temp_word_list:
                     for letter in guessed_letters:
                         if letter not in word:
                             valid_words.discard(word)
