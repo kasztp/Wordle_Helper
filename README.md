@@ -3,7 +3,7 @@
 Helper (or cheating if you'd like) tool for the viral word game Wordle.
 It is based on my previous Letterpress Helper pet project with Flask, Bootstrap & FontAwesome
 
-Demo: TBD
+Demo: https://f08imshix4.execute-api.eu-central-1.amazonaws.com/dev/
 
 ## Authors
 
