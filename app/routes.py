@@ -1,6 +1,6 @@
 from copy import deepcopy
 import re
-from flask import render_template, flash, redirect, request, url_for
+from flask import flash, render_template, redirect, request, url_for
 from app import app
 from .forms import ConfigForm
 from .wordle_logic import Wordle
